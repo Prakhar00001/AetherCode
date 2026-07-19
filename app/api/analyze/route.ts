@@ -26,8 +26,9 @@ export async function POST(request: Request) {
       \`\`\`
     `;
 
+    // ⚡ MODEL UPGRADED TO PRODUCTION-GRADE COMPATIBILITY
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash-001', 
       contents: prompt,
       config: {
         responseMimeType: 'application/json',
