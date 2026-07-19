@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+⚡ AetherCode
 
-## Getting Started
+**AetherCode** is a premium Next.js full-stack development workspace engineered to accelerate code auditing, complexity calculation, and script optimization. By matching developer source code directly against state-of-the-art LLM reasoning models via a reinforced backend architecture, AetherCode breaks down code down into actionable metrics without the typical overhead of local container tools.
 
-First, run the development server:
+It generates isolated abstract syntax tree (AST) integrity scores, computes runtime time complexity markers, isolates structural anomalies, catches token-hijack profiles, and serves an immediate side-by-side clean rewrite panel complete with a continuous chat console for conversational micro-tuning.
 
+---
+
+## 🛠️ Tech Stack
+
+*   **Frontend Ecosystem:** Next.js 15 (App Router), React, TailwindCSS, Framer Motion (Fluid Spring Mechanics).
+*   **Aesthetics & Visual Context:** Lucide Icons, Prism Syntax Highlighter (High-fidelity token coloring).
+*   **Backend & Orchestration:** Next.js API Routes (Route Handlers), Edge-ready Runtime Handlers.
+*   **AI Engine:** Google GenAI SDK (`@google/genai`) tracking the active production `gemini-3.5-flash` node array.
+
+---
+
+## ✨ Key Features
+
+*   💻 **Expanded Workspace Input Gutter:** A stretched `min-h-[400px]` drag-and-drop source viewport featuring live line-index counting that comfortably renders large, complex functions out of the box.
+*   📊 **AST Integrity Telemetry:** Real-time production metrics scoring system mapping logic patterns directly against verified industrial software guidelines.
+*   🌿 **Side-by-Side Synthesis View:** Instant code diff presentation highlighting your baseline layout text right next to optimized, production-ready AI code.
+*   ⚠️ **Anomaly & Security Isolation:** Deep token exploration tracking logical bugs, memory leaks, and access vector leaks grouped cleanly by severity flags.
+*   💬 **Refinement Prompt Console:** A conversational, state-guarded context window providing micro-adjustment loops over the generated output text.
+
+---
+
+## 🚀 Quick Start & Installation
+
+Ensure you have [Node.js v18.x or later](https://nodejs.org/) installed before spinning up your workspace environment.
+
+### 1. Clone & Position Repository
 ```bash
+git clone [https://github.com/Prakhar00001/AetherCode.git](https://github.com/Prakhar00001/AetherCode.git)
+
+2. Install Dependencies
+
+npm install
+
+3. Environment Variable Provisioning
+
+Create a .env.local file in the project root directory:
+
+GEMINI_API_KEY=gemini_api_key_here
+
+4. Fire Up the Local Runtime Engine
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser to http://localhost:3000 to interact with your live local workspace grid.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+⚙️ Architecture & How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[ Client Workspace ] ──( Payload: Code + Lang )──> [ Next.js API Gateway ]
+        │                                                     │
+ (Renders Stretched UI)                               (Resilient Catch Block)
+        │                                                     │
+[ High-Fidelity Diff ] <──( Structured JSON Schema )── [ Gemini 3.5 Engine ]
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📂 Structural Overview
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+AetherCode/
+├── app/
+│   ├── api/
+│   │   └── analyze/
+│   │       └── route.ts     # Streamlined API Route Handler (AI Schema Mapping)
+│   ├── globals.css          # Tailwind Custom Styles & Gutter Configurations
+│   └── page.tsx             # Interactive Light-Theme Workspace (Framer Motion UI)
+├── package.json             # Core Dependency Declarations
+└── README.md                # Project Architecture Blueprint
 
-## Deploy on Vercel
+🌐 Production Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is configured to run out-of-the-box on the Vercel platform.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1)Connect your GitHub repository account to Vercel.
+
+2)Import the AetherCode project workspace.
+
+3)Inject your production GEMINI_API_KEY into the Environment Variables panel
+
+4)Trigger the build. Vercel's data network will handle standard handshake routing securely at the edge!
+
+
+
