@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Upload, Code2, Sparkles, ShieldAlert, Layers, 
   Share2, Check, RefreshCw, ArrowRight, 
-  MessageSquare, Copy, ChevronRight, Eye, AlertCircle, Maximize2
+  MessageSquare, Copy, ChevronRight, AlertCircle, Maximize2
 } from 'lucide-react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism';
@@ -34,7 +34,6 @@ const PLAYGROUND_TEMPLATES = [
   }
 ];
 
-// Fluid Spring Configuration with strict literal casting for type safety
 const FLUID_SPRING = { type: "spring", damping: 25, stiffness: 180, mass: 0.8 } as const;
 
 export default function Home() {
@@ -132,7 +131,7 @@ export default function Home() {
         
         <button 
           onClick={() => copyWorkspaceTextToClipboard(window.location.href, 'share')}
-          className="text-[11px] font-medium text-neutral-500 hover:text-black transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-black/[0.04] shadow-[0_1px_2px_rgba(0,0,0,0.02)] active:scale-[0.98]"
+          className="text-[11px] font-medium text-neutral-500 hover:text-black transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-black/[0.04] shadow-sm active:scale-[0.98]"
         >
           {activeCopiedMarker === 'share' ? <Check className="h-3 w-3 text-emerald-600" /> : <Share2 className="h-3 w-3" />}
           {activeCopiedMarker === 'share' ? 'Link Copied' : 'Share Workspace'}
@@ -163,7 +162,7 @@ export default function Home() {
           </motion.p>
         </div>
 
-        {/* WORKSPACE INPUT STAGE: Clean Native Desktop Console App Frame */}
+        {/* WORKSPACE INPUT STAGE */}
         <div className="apple-workspace-card rounded-2xl p-7 bg-white space-y-7">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/[0.03] pb-4">
             <div className="flex items-center gap-2">
@@ -199,7 +198,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Reference Testing Playgrounds */}
+          {/* Playgrounds Presets */}
           <div className="space-y-1.5">
             <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block pl-0.5">Reference Testing Playgrounds</span>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
@@ -221,31 +220,30 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Core Text Input Frame */}
+          {/* Expanded Stretched Input Container */}
           <div 
             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
             onDragLeave={() => setIsDragging(false)}
             onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files[0]; if (f) { const r = new FileReader(); r.onload = (ev) => setCode(ev.target?.result as string); r.readAsText(f); } }}
-            className={`relative rounded-xl overflow-hidden border transition-all ${
-              isDragging ? 'border-[#0071E3] bg-[#0071E3]/[0.01]' : 'border-black/[0.04] bg-[#F5F5F7]/20 focus-within:border-neutral-300'
+            className={`relative rounded-xl overflow-hidden border transition-all min-h-[400px] flex items-stretch ${
+              isDragging ? 'border-[#0071E3] bg-[#0071E3]/[0.01]' : 'border-black/[0.08] bg-[#F5F5F7]/20 focus-within:border-neutral-400 focus-within:bg-white'
             }`}
           >
-            <div className="flex items-start">
-              <div className="text-[11px] font-mono text-neutral-300 text-right p-5 pr-3 select-none border-r border-black/[0.01] bg-black/[0.005] min-w-[3.5rem] space-y-1">
-                {Array.from({ length: Math.max(dynamicInputLineCount, 1) }).map((_, lineIdx) => (
-                  <div key={lineIdx}>{lineIdx + 1}</div>
-                ))}
-              </div>
-              <textarea
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="// Supply custom source function blocks here to initialize evaluation compiler runs..."
-                className="w-full h-72 bg-transparent text-neutral-800 font-mono text-xs p-5 resize-none focus:outline-none custom-textarea leading-relaxed"
-              />
+            <div className="text-[11px] font-mono text-neutral-400 text-right p-5 pr-3 select-none border-r border-black/[0.04] bg-black/[0.01] min-w-[3.5rem] space-y-1">
+              {Array.from({ length: Math.max(dynamicInputLineCount, 1) }).map((_, lineIdx) => (
+                <div key={lineIdx}>{lineIdx + 1}</div>
+              ))}
             </div>
+
+            <textarea
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="// Supply custom source function blocks here to initialize evaluation compiler runs..."
+              className="w-full min-h-[400px] bg-transparent text-neutral-800 font-mono text-xs p-5 resize-none focus:outline-none custom-textarea leading-relaxed"
+            />
           </div>
 
-          {/* Action Execution Button */}
+          {/* Action Trigger Row */}
           <div className="flex justify-end border-t border-black/[0.03] pt-4">
             <button
               onClick={executePipelineEvaluation}
@@ -259,11 +257,12 @@ export default function Home() {
           </div>
         </div>
 
-        {/* LIVE EVALUATION SECTION OUTPUT VIEWPORTS */}
+        {/* RESULTS DISPATCH REGION */}
         <div className="pt-2">
           <AnimatePresence mode="wait">
             {isAnalyzing && (
               <motion.div 
+                key="loading-panel"
                 initial={{ opacity: 0, scale: 0.99 }} 
                 animate={{ opacity: 1, scale: 1 }} 
                 exit={{ opacity: 0 }} 
@@ -283,13 +282,13 @@ export default function Home() {
 
             {!isAnalyzing && showResults && analysisData && (
               <motion.div 
+                key="results-panel"
                 initial={{ opacity: 0, y: 16 }} 
                 animate={{ opacity: 1, y: 0 }} 
                 transition={FLUID_SPRING}
                 className="space-y-8"
               >
-                
-                {/* Metric Readout Score Grid */}
+                {/* Metric Summary Score Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="apple-workspace-card p-6 rounded-2xl bg-white flex flex-col justify-between">
                     <div>
@@ -316,10 +315,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Unified Output Panel Area Grid */}
+                {/* Split Workspace View Tab Block */}
                 <div className="apple-workspace-card rounded-2xl overflow-hidden bg-white flex flex-col shadow-sm">
-                  
-                  {/* Tab Navigation header */}
                   <div className="border-b border-black/[0.03] bg-[#F5F5F7]/40 p-3 flex gap-1.5 items-center justify-between px-5 flex-wrap">
                     <div className="flex gap-1">
                       {(['diff', 'anomalies', 'security'] as const).map((tab) => (
@@ -348,13 +345,12 @@ export default function Home() {
                     )}
                   </div>
 
-                  {/* Dynamic Render Sub-tab Containers */}
                   <div className="p-7 min-h-[460px] bg-white">
                     {activeTab === 'diff' && (
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
                         <div className="flex flex-col rounded-xl overflow-hidden border border-black/[0.03] bg-[#F5F5F7]/30">
                           <div className="bg-neutral-50/50 border-b border-black/[0.02] px-4 py-2 flex items-center text-[11px] font-mono text-neutral-400">
-                            <span className="flex items-center gap-1.5 text-rose-600/70"><span className="h-1.5 w-1.5 rounded-full bg-rose-500" /> Baseline Code Layout</span>
+                            <span className="flex items-center gap-1.5 text-rose-600/70"><span className="h-1.5 w-1.5 rounded-full bg-rose-50" /> Baseline Code Layout</span>
                           </div>
                           <div className="text-[11px] font-mono overflow-auto p-4 apple-pane-scroll flex-1 max-h-[480px] bg-white">
                             <SyntaxHighlighter language={language} style={prism} customStyle={{ margin: 0, background: 'transparent', padding: 0 }}>
@@ -471,7 +467,6 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-
               </motion.div>
             )}
           </AnimatePresence>
